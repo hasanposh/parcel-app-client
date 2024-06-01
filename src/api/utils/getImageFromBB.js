@@ -8,5 +8,5 @@ export const getImageFromBB = async (image) => {
   const formData = new FormData();
   formData.append("image", image);
   const { data } = await axios.post(image_hosting_api, formData);
-  return  data;
+  return data.data.display_url;
 };

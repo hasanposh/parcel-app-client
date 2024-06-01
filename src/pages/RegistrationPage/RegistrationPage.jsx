@@ -1,7 +1,18 @@
 import { getImageFromBB } from "@/api/utils/getImageFromBB";
-import { Link } from "react-router-dom";
+import useAuth from "@/hooks/useAuth";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const RegistrationPage = () => {
+  const {
+    user,
+    loading,
+    setLoading,
+    createUser,
+    signInWithGoogle,
+    updateUserProfile,
+  } = useAuth();
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -12,10 +23,20 @@ const RegistrationPage = () => {
     // console.log(name, email, password, image);
 
     try {
+      setLoading(true);
       const imageUrl = await getImageFromBB(image);
-      console.log(imageUrl);
+      // console.log(imageUrl);
+
+      // user registration
+      const result = await createUser(email, password);
+      console.log(result);
+      // update profile / save user name and photo in firebase
+      await updateUserProfile(name, imageUrl);
+      navigate("/");
+      toast.success("Sign Up Successfull");
     } catch (err) {
       console.log(err);
+      toast.error(err.message);
     }
   };
 

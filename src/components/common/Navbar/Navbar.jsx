@@ -1,9 +1,11 @@
+import useAuth from "@/hooks/useAuth";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [open, setOpen] = useState(true);
+  const { user } = useAuth();
   const navLinks = (
     <>
       <NavLink
@@ -127,13 +129,14 @@ const Navbar = () => {
                   <span className="relative group-hover:text-white">Login</span>
                 </Link>
                 <button
+                  onClick={() => toast.success("hocche")}
                   type="button"
                   className="flex items-center focus:outline-none"
                   aria-label="toggle profile dropdown"
                 >
-                  <div className="size-10 overflow-hidden border-2 border-gray-400 rounded-full">
+                  <div className="size-14 overflow-hidden border-2 border-gray-400 rounded-full">
                     <img
-                      src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
+                      src={user.photoURL}
                       className="object-cover w-full h-full"
                       alt="avatar"
                     />
