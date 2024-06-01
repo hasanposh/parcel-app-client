@@ -1,33 +1,31 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import LoginButton from "./LoginButton/LoginButton";
 
 const Navbar = () => {
   const [open, setOpen] = useState(true);
   const navLinks = (
     <>
-      <a
-        href="#"
-        className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+      <NavLink
+        to={"/"}
+        className={({ isActive }) =>
+          isActive
+            ? "text-red-500 hover:text-yellow-500"
+            : " hover:text-yellow-500"
+        }
       >
-        Join Slack
-      </a>
-      <a
-        href="#"
-        className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+        Home
+      </NavLink>
+      <NavLink
+        to={"/dashboard"}
+        className={({ isActive }) =>
+          isActive
+            ? "text-red-500 hover:text-yellow-500"
+            : " hover:text-yellow-500"
+        }
       >
-        Browse Topics
-      </a>
-      <a
-        href="#"
-        className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-      >
-        Random Item
-      </a>
-      <a
-        href="#"
-        className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-      >
-        Experts
-      </a>
+        Dashboard
+      </NavLink>
     </>
   );
   return (
@@ -97,7 +95,7 @@ const Navbar = () => {
                 open && "-my-96"
               } lg:my-0 absolute inset-x-0 z-20 w-full px-6 py-4 top-[72px] transition-all duration-500 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center`}
             >
-              <div className="flex flex-col -mx-6 lg:flex-row lg:items-center lg:mx-8">
+              <div className="flex text-lg flex-col gap-4 -mx-6 lg:flex-row lg:items-center lg:mx-8">
                 {navLinks}
               </div>
 
@@ -121,7 +119,13 @@ const Navbar = () => {
                     />
                   </svg>
                 </button>
-
+                <button
+            
+                  className="px-5 py-2.5 relative rounded group overflow-hidden font-medium bg-red-50 text-red-600 inline-block"
+                >
+                  <span className="absolute top-0 left-0 flex w-full h-0 mb-0 transition-all duration-200 ease-out transform translate-y-0 bg-red-600 group-hover:h-full opacity-90"></span>
+                  <span className="relative group-hover:text-white">Login</span>
+                </button>
                 <button
                   type="button"
                   className="flex items-center focus:outline-none"
