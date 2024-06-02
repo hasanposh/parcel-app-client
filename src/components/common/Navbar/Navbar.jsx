@@ -1,11 +1,19 @@
+import { Button } from "@/components/ui/button";
 import useAuth from "@/hooks/useAuth";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { toast } from "react-toastify";
+import "react-tooltip/dist/react-tooltip.css";
 
 const Navbar = () => {
   const [open, setOpen] = useState(true);
-  const { user } = useAuth();
+  const [close, setClose] = useState(true);
+  const { user, logOut } = useAuth();
+  // console.log(user);
+  console.log(close);
+  const handleLogOutUser = () => {
+    logOut();
+    setClose(true);
+  };
   const navLinks = (
     <>
       <NavLink
@@ -121,31 +129,51 @@ const Navbar = () => {
                     />
                   </svg>
                 </button>
-                <Link
-                  to={"/login"}
-                  className="px-5 py-2.5 relative rounded group overflow-hidden font-medium bg-red-50 text-red-600 inline-block"
-                >
-                  <span className="absolute top-0 left-0 flex w-full h-0 mb-0 transition-all duration-200 ease-out transform translate-y-0 bg-red-600 group-hover:h-full opacity-90"></span>
-                  <span className="relative group-hover:text-white">Login</span>
-                </Link>
-                <button
-                  onClick={() => toast.success("hocche")}
-                  type="button"
-                  className="flex items-center focus:outline-none"
-                  aria-label="toggle profile dropdown"
-                >
-                  <div className="size-14 overflow-hidden border-2 border-gray-400 rounded-full">
-                    <img
-                      src={user.photoURL}
-                      className="object-cover w-full h-full"
-                      alt="avatar"
-                    />
+                {!user ? (
+                  <Link
+                    to={"/login"}
+                    className="px-5 py-2.5 relative rounded group overflow-hidden font-medium bg-red-50 text-red-600 inline-block"
+                  >
+                    <span className="absolute top-0 left-0 flex w-full h-0 mb-0 transition-all duration-200 ease-out transform translate-y-0 bg-red-600 group-hover:h-full opacity-90"></span>
+                    <span className="relative group-hover:text-white">
+                      Login
+                    </span>
+                  </Link>
+                ) : (
+                  <div>
+                    <button
+                      onClick={() => setClose(!close)}
+                      type="button"
+                      className="relative flex items-center focus:outline-none"
+                      aria-label="toggle profile dropdown"
+                    >
+                      <div className="size-14 overflow-hidden border-2 border-gray-400 rounded-full">
+                        <img
+                          src={user?.photoURL}
+                          className="object-cover w-full h-full"
+                          alt="avatar"
+                        />
+                      </div>
+                    </button>
                   </div>
-
-                  <h3 className="mx-2 text-gray-700 dark:text-gray-200 lg:hidden">
-                    Khatab wedaa
-                  </h3>
-                </button>
+                )}
+                <div
+                  className={`${
+                    close ? "-top-[400px]" : "top-[170px] lg:top-[72px]"
+                  } flex flex-col gap-2 absolute z-20 border w-3/4 bg-white p-4 rounded-md transition-all duration-500 ease-in-out  `}
+                >
+                  <p className="font-medium text-red-500">Hello, {user?.displayName}</p>
+                  <Link to={"dashboard"} className="hover:underline">
+                    Dashboard
+                  </Link>
+                  <Button
+                    variant="destructive"
+                    onClick={handleLogOutUser}
+                    className="hover:underline"
+                  >
+                    Log Out
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
