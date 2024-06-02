@@ -1,13 +1,32 @@
 import useAuth from "@/hooks/useAuth";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const LoginWithGoogle = () => {
   const { setLoading, signInWithGoogle } = useAuth();
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const handleClick = async () => {
     setLoading(true);
-    await signInWithGoogle();
+    const res = await signInWithGoogle();
+    console.log(res);
+    const userInfo = {
+      email: res?.user?.email,
+      name: res?.user?.displayName,
+      role: "user",
+    };
+    try {
+      const { data } = await axiosPublic.post(`/users`, userInfo);
+      if (data.insertedId) {
+        toast.success("Registered Successfull");
+        navigate("/");
+      }
+    } catch (err) {
+      toast.error(err.message);
+      console.log(err);
+    }
+
     navigate("/");
     toast.success("Sign In Successfull");
   };

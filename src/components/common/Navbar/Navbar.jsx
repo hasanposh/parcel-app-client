@@ -159,7 +159,7 @@ const Navbar = () => {
                 )}
                 <div
                   className={`${
-                    close ? "-top-[400px]" : "top-[170px] lg:top-[72px]"
+                    close ? "-top-[400px]" : "top-[175px] lg:top-[72px]"
                   } flex flex-col gap-2 absolute z-20 border w-3/4 bg-white p-4 rounded-md transition-all duration-500 ease-in-out  `}
                 >
                   <p className="font-medium text-red-500">Hello, {user?.displayName}</p>

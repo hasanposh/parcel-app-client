@@ -4,9 +4,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 const HomeBanner = () => {
   const { toast } = useToast();
-  const today = new Date();
-  console.log(today)
-  console.log(typeof(today))
+  
   return (
     <div className="min-h-screen flex flex-col text-white justify-center items-center bg-cover bg-fixed bg-center bg-no-repeat bg-[linear-gradient(45deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('https://images.pexels.com/photos/7844012/pexels-photo-7844012.jpeg')]">
       <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 text-center">

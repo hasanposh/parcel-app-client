@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { TfiWrite } from "react-icons/tfi";
 import { PiUserFill } from "react-icons/pi";
-import { FaBoxOpen } from "react-icons/fa";
+import { ImStatsDots } from "react-icons/im";
+import { FaBoxOpen ,FaBoxes,FaUsers ,FaUserAstronaut ,FaClipboardList  } from "react-icons/fa";
+import { TbStarsFilled } from "react-icons/tb";
 import MenuItem from "@/components/Dashboard/SideBar/MenuItem/MenuItem";
 
 import useAuth from "@/hooks/useAuth";
@@ -9,6 +11,28 @@ const Sidebar = () => {
   const { logOut } = useAuth();
   const navLinks = (
     <>
+      {/* admin */}
+      <MenuItem
+        label="All Parcels"
+        address="/dashboard/allParcels"
+        icon={FaBoxes }
+      />
+      <MenuItem
+        label="All Users"
+        address="/dashboard/allUsers"
+        icon={FaUsers }
+      />
+      <MenuItem
+        label="All Delivery Men"
+        address="/dashboard/allDeliveryMen"
+        icon={FaUserAstronaut}
+      />
+      <MenuItem
+        label="Statistics"
+        address="/dashboard/statistics"
+        icon={ImStatsDots }
+      />
+      {/* user  */}
       <MenuItem label="My Profile" address="/dashboard" icon={PiUserFill} />
       <MenuItem
         label="Book a Parcel"
@@ -19,6 +43,17 @@ const Sidebar = () => {
         label="My Parcels"
         address="/dashboard/myParcels"
         icon={FaBoxOpen}
+      />
+      {/* delivery man */}
+      <MenuItem
+        label="My Delivery List"
+        address="/dashboard/myDeliveryList"
+        icon={FaClipboardList }
+      />
+      <MenuItem
+        label="My Reviews"
+        address="/dashboard/myReviews"
+        icon={TbStarsFilled }
       />
     </>
   );

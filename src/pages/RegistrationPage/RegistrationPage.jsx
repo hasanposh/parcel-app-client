@@ -1,12 +1,17 @@
 import { getImageFromBB } from "@/api/utils/getImageFromBB";
 import LoginWithGoogle from "@/components/LoginwithGoogle/LoginWithGoogle";
 import useAuth from "@/hooks/useAuth";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const RegistrationPage = () => {
   const { setLoading, createUser, updateUserProfile } = useAuth();
+  // const today = new Date();
+  // console.log(today)
+  // console.log(typeof(today))
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -15,7 +20,7 @@ const RegistrationPage = () => {
     const password = form.password.value;
     const image = form.image.files[0];
     const selectedRole = form.selectedRole.value;
-    console.log(name, email, password, image ,selectedRole);
+    // console.log(name, email, password, image, selectedRole);
 
     try {
       setLoading(true);
@@ -27,10 +32,28 @@ const RegistrationPage = () => {
       console.log(result);
       // update profile / save user name and photo in firebase
       await updateUserProfile(name, imageUrl);
+
+      // user entry in database
+      const userInfo = {
+        name,
+        email,
+        role: selectedRole,
+      };
+
+      try {
+        const { data } = await axiosPublic.post(`/users`, userInfo);
+        if (data.insertedId) {
+          toast.success("Registered Successfull");
+          navigate("/");
+        }
+      } catch (err) {
+        toast.error(err.message);
+        // console.log(err);
+      }
       navigate("/");
-      toast.success("Sign Up Successfull");
+      toast.success("Sign In Successfull");
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       toast.error(err.message);
     }
   };
