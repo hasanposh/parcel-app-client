@@ -9,7 +9,7 @@ const Navbar = () => {
   const [close, setClose] = useState(true);
   const { user, logOut } = useAuth();
   // console.log(user);
-  console.log(close);
+  // console.log(close);
   const handleLogOutUser = () => {
     logOut();
     setClose(true);
@@ -44,7 +44,7 @@ const Navbar = () => {
         <div className="container px-6 py-4 mx-auto">
           <div className="lg:flex lg:items-center lg:justify-between">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
+              <Link to={'/'} className="flex items-center gap-2">
                 <img
                   className="w-auto h-6 sm:h-7"
                   src="bike-city-svgrepo-com.svg"
@@ -54,7 +54,7 @@ const Navbar = () => {
                   Quo<span className="text-red-500">k</span>
                   <span className="text-yellow-500">k</span>a
                 </h2>
-              </div>
+              </Link>
 
               {/* Mobile menu button  */}
               <div className="flex lg:hidden">

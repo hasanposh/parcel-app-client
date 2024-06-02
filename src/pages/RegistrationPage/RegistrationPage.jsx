@@ -5,11 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const RegistrationPage = () => {
-  const {
-    setLoading,
-    createUser,
-    updateUserProfile,
-  } = useAuth();
+  const { setLoading, createUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +14,8 @@ const RegistrationPage = () => {
     const email = form.email.value;
     const password = form.password.value;
     const image = form.image.files[0];
-    // console.log(name, email, password, image);
+    const selectedRole = form.selectedRole.value;
+    console.log(name, email, password, image ,selectedRole);
 
     try {
       setLoading(true);
@@ -41,10 +38,11 @@ const RegistrationPage = () => {
   return (
     <div className="min-h-screen p-4 md:p-0 items-center flex bg-cover bg-[linear-gradient(45deg,rgba(0,0,0,0.6),rgba(0,0,0,0.3)),url('https://images.pexels.com/photos/2088205/pexels-photo-2088205.jpeg')]">
       <div className="flex w-full items-center flex-row-reverse  mx-auto overflow-hidden rounded-lg shadow-lg bg-white lg:max-w-4xl">
-        <div className="hidden bg-cover p-4 lg:block lg:w-1/2">
+        <div className="hidden h-full lg:block lg:w-1/2">
           <img
             src="https://images.pexels.com/photos/7203785/pexels-photo-7203785.jpeg"
             alt=""
+            className="object-cover"
           />
         </div>
 
@@ -92,6 +90,18 @@ const RegistrationPage = () => {
                 type="file"
                 name="image"
               />
+            </div>
+            <div className="mt-4">
+              <label className="block mb-2 text-sm font-medium">
+                Your Role
+              </label>
+              <select
+                className="block w-full px-4 py-2 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
+                name="selectedRole"
+              >
+                <option value="user">User</option>
+                <option value="delivery man">Delivery Man</option>
+              </select>
             </div>
             <div className="mt-4">
               <label className="block mb-2 text-sm font-medium  ">
