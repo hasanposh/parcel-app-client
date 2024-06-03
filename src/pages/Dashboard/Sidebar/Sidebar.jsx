@@ -2,25 +2,37 @@ import { Link } from "react-router-dom";
 import { TfiWrite } from "react-icons/tfi";
 import { PiUserFill } from "react-icons/pi";
 import { ImStatsDots } from "react-icons/im";
-import { FaBoxOpen ,FaBoxes,FaUsers ,FaUserAstronaut ,FaClipboardList  } from "react-icons/fa";
+import {
+  FaBoxOpen,
+  FaBoxes,
+  FaUsers,
+  FaUserAstronaut,
+  FaClipboardList,
+} from "react-icons/fa";
 import { TbStarsFilled } from "react-icons/tb";
 import MenuItem from "@/components/Dashboard/SideBar/MenuItem/MenuItem";
 
 import useAuth from "@/hooks/useAuth";
+import useRole from "@/hooks/useRole";
 const Sidebar = () => {
   const { logOut } = useAuth();
+  const [role] = useRole();
+  // const role = "delivery man";
+  // console.log(role)
   const navLinks = (
     <>
       {/* admin */}
-      <MenuItem
+      {role === "admin" && (
+        <>
+         <MenuItem
         label="All Parcels"
         address="/dashboard/allParcels"
-        icon={FaBoxes }
+        icon={FaBoxes}
       />
       <MenuItem
         label="All Users"
         address="/dashboard/allUsers"
-        icon={FaUsers }
+        icon={FaUsers}
       />
       <MenuItem
         label="All Delivery Men"
@@ -30,31 +42,41 @@ const Sidebar = () => {
       <MenuItem
         label="Statistics"
         address="/dashboard/statistics"
-        icon={ImStatsDots }
+        icon={ImStatsDots}
       />
+        </>
+      )}
       {/* user  */}
-      <MenuItem label="My Profile" address="/dashboard" icon={PiUserFill} />
-      <MenuItem
-        label="Book a Parcel"
-        address="/dashboard/bookAParcel"
-        icon={TfiWrite}
-      />
-      <MenuItem
-        label="My Parcels"
-        address="/dashboard/myParcels"
-        icon={FaBoxOpen}
-      />
+      {role === "user" && (
+        <>
+          <MenuItem label="My Profile" address="/dashboard" icon={PiUserFill} />
+          <MenuItem
+            label="Book a Parcel"
+            address="/dashboard/bookAParcel"
+            icon={TfiWrite}
+          />
+          <MenuItem
+            label="My Parcels"
+            address="/dashboard/myParcels"
+            icon={FaBoxOpen}
+          />
+        </>
+      )}
       {/* delivery man */}
-      <MenuItem
-        label="My Delivery List"
-        address="/dashboard/myDeliveryList"
-        icon={FaClipboardList }
-      />
-      <MenuItem
-        label="My Reviews"
-        address="/dashboard/myReviews"
-        icon={TbStarsFilled }
-      />
+      {role === "delivery man" && (
+        <>
+          <MenuItem
+            label="My Delivery List"
+            address="/dashboard/myDeliveryList"
+            icon={FaClipboardList}
+          />
+          <MenuItem
+            label="My Reviews"
+            address="/dashboard/myReviews"
+            icon={TbStarsFilled}
+          />
+        </>
+      )}
     </>
   );
   return (

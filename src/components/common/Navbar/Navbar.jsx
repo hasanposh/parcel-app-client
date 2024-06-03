@@ -26,16 +26,18 @@ const Navbar = () => {
       >
         Home
       </NavLink>
-      <NavLink
-        to={"/dashboard"}
-        className={({ isActive }) =>
-          isActive
-            ? "text-red-500 hover:text-yellow-500"
-            : " hover:text-yellow-500"
-        }
-      >
-        Dashboard
-      </NavLink>
+      {user && (
+        <NavLink
+          to={"/dashboard"}
+          className={({ isActive }) =>
+            isActive
+              ? "text-red-500 hover:text-yellow-500"
+              : " hover:text-yellow-500"
+          }
+        >
+          Dashboard
+        </NavLink>
+      )}
     </>
   );
   return (
@@ -44,7 +46,7 @@ const Navbar = () => {
         <div className="container px-6 py-4 mx-auto">
           <div className="lg:flex lg:items-center lg:justify-between">
             <div className="flex items-center justify-between">
-              <Link to={'/'} className="flex items-center gap-2">
+              <Link to={"/"} className="flex items-center gap-2">
                 <img
                   className="w-auto h-6 sm:h-7"
                   src="bike-city-svgrepo-com.svg"
@@ -162,7 +164,9 @@ const Navbar = () => {
                     close ? "-top-[400px]" : "top-[175px] lg:top-[72px]"
                   } flex flex-col gap-2 absolute z-20 border w-3/4 bg-white p-4 rounded-md transition-all duration-500 ease-in-out  `}
                 >
-                  <p className="font-medium text-red-500">Hello, {user?.displayName}</p>
+                  <p className="font-medium text-red-500">
+                    Hello, {user?.displayName}
+                  </p>
                   <Link to={"dashboard"} className="hover:underline">
                     Dashboard
                   </Link>

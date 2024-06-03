@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
-import Sidebar from "./Sidebar/Sidebar";
+import Sidebar from "../pages/Dashboard/Sidebar/Sidebar";
 
 const Dashboard = () => {
   return (
-    <div className="flex gap-10">
+    <div className="flex ">
       {/* sidebar */}
       <Sidebar />
       {/* outlet */}
