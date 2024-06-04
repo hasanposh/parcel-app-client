@@ -17,7 +17,7 @@ import useRole from "@/hooks/useRole";
 const Sidebar = () => {
   const { logOut } = useAuth();
   const [role] = useRole();
-  // const role = "delivery man";
+  // const role = "admin";
   // console.log(role)
   const navLinks = (
     <>
@@ -49,7 +49,7 @@ const Sidebar = () => {
       {/* user  */}
       {role === "user" && (
         <>
-          <MenuItem label="My Profile" address="/dashboard" icon={PiUserFill} />
+          <MenuItem label="My Profile" address="/dashboard/userProfile" icon={PiUserFill} />
           <MenuItem
             label="Book a Parcel"
             address="/dashboard/bookAParcel"

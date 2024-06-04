@@ -8,6 +8,7 @@ import MyDeliveryList from "@/pages/Dashboard/DeliveryManPages/MyDeliveryList/My
 import MyReviews from "@/pages/Dashboard/DeliveryManPages/MyReviews/MyReviews";
 import BookAParcel from "@/pages/Dashboard/UserPages/BookAParcel/BookAParcel";
 import MyParcels from "@/pages/Dashboard/UserPages/MyParcels/MyParcels";
+import UpdateParcel from "@/pages/Dashboard/UserPages/MyParcels/UpdateParcel/UpdateParcel";
 import UserMyProfile from "@/pages/Dashboard/UserPages/UserMyProfile/UserMyProfile";
 import ErrorPage from "@/pages/ErrorPage";
 import Home from "@/pages/Home/Home";
@@ -26,14 +27,6 @@ export const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
-      {
-        path: "dashboard",
-        element: (
-          <PrivateRoute>
-            <Dashboard />
-          </PrivateRoute>
-        ),
-      },
     ],
   },
   {
@@ -47,7 +40,7 @@ export const router = createBrowserRouter([
     children: [
       // user routes
       {
-        index: true,
+        path: "userProfile",
         element: <UserMyProfile />,
       },
       {
@@ -57,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: "myParcels",
         element: <MyParcels />,
+      },
+      {
+        path: "updateParcel/:id",
+        element: <UpdateParcel />,
       },
       // deliver men routes
       {

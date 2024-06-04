@@ -1,22 +1,64 @@
 import useAuth from "@/hooks/useAuth";
-import { Link } from "react-router-dom";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const UserBookAParcel = () => {
   const { user } = useAuth();
+  const [price, setPrice] = useState();
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
   //   console.log(user)
   //   function for price
   const calcPrice = (weight) => {
     if (weight == 1) {
-      return (weight = weight * 50);
+      setPrice(weight * 50);
     }
     if (weight == 2) {
-      return (weight = weight * 100);
+      setPrice(weight * 100);
     }
     if (weight >= 2) {
-      return (weight = weight * 150);
+      setPrice(weight * 150);
     }
   };
-  const handleSubmit = (e) => {
+  const onWeightChange = (event) => {
+    const parcelWeight = event.target.value;
+    console.log(parcelWeight);
+    if (parcelWeight) {
+      calcPrice(parseInt(parcelWeight));
+    }
+  };
+
+  //   const getNext7thDay =(dateStr)=> {
+  //     // Parse the input date
+  //     const date = new Date(dateStr);
+
+  //     // Add 7 days
+  //     date.setDate(date.getDate() + 7);
+
+  //     // Format the result back to YYYY-MM-DD
+  //     const year = date.getFullYear();
+  //     const month = String(date.getMonth() + 1).padStart(2, '0');
+  //     const day = String(date.getDate()).padStart(2, '0');
+
+  //     return `${year}-${month}-${day}`;
+  //   }
+
+  //   Post
+  const { mutateAsync } = useMutation({
+    mutationFn: async (formData) => {
+      const { data } = await axiosSecure.post(`/bookings`, formData);
+      return data;
+    },
+    onSuccess: (data) => {
+      console.log(data);
+      toast.success("Successfully Add Your Booking.");
+      navigate("/dashboard/myParcels");
+    },
+  });
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const name = user?.displayName;
@@ -24,22 +66,27 @@ const UserBookAParcel = () => {
     const phoneNumber = form.phoneNumber.value;
     const parcelType = form.parcelType.value;
     const parcelWeight = form.parcelWeight.value;
-    const price = calcPrice(parcelWeight);
+    const calcPrice = price;
     const receiversName = form.receiversName.value;
     const receiversPhoneNumber = form.receiversPhoneNumber.value;
     const parcelDeliveryAddress = form.parcelDeliveryAddress.value;
     const requestedDeliveryDate = form.requestedDeliveryDate.value;
     const deliveryAddressLatitude = form.deliveryAddressLatitude.value;
     const deliveryAddressLongitude = form.deliveryAddressLongitude.value;
-    const BookingDate = new Date();
-    const currentDate = new Date().toDateString();
     const bookingStatus = "pending";
-    console.table(
+    const BookingDate = new Date();
+    // const approximateDeliveryDate = getNext7thDay(requestedDeliveryDate)
+    // console.log(approximateDeliveryDate)
+
+    // const approximateDeliveryDate = new Date();
+    // approximateDeliveryDate.setDate(approximateDeliveryDate.getDate() + 7);
+
+    // console.log(approximateDeliveryDate);
+    const formData = {
       name,
       email,
       phoneNumber,
       parcelType,
-      price,
       receiversName,
       receiversPhoneNumber,
       parcelDeliveryAddress,
@@ -47,9 +94,19 @@ const UserBookAParcel = () => {
       deliveryAddressLatitude,
       deliveryAddressLongitude,
       BookingDate,
-      currentDate,
-      bookingStatus
-    );
+      parcelWeight,
+      calcPrice,
+      //   currentDate,
+      bookingStatus,
+    };
+    console.table(formData);
+
+    // post on database
+    try {
+      await mutateAsync(formData);
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <section className=" p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
@@ -111,6 +168,7 @@ const UserBookAParcel = () => {
           <div>
             <label className="text-gray-700  ">Parcel Weight</label>
             <input
+              onChange={onWeightChange}
               name="parcelWeight"
               type="number"
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
@@ -165,6 +223,14 @@ const UserBookAParcel = () => {
               step="any"
               name="deliveryAddressLongitude"
               type="number"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
+            />
+          </div>
+          <div>
+            <label className="text-gray-700  ">Price</label>
+            <input
+              readOnly
+              value={price}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
             />
           </div>

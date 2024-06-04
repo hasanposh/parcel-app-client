@@ -1,9 +1,48 @@
 import useAuth from "@/hooks/useAuth";
 import useRole from "@/hooks/useRole";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { getImageFromBB } from "@/api/utils/getImageFromBB";
+import { toast } from "react-toastify";
 
 const UserMyProfile = () => {
-  const { user } = useAuth();
-  const role = useRole()
+  const { user, updateUserProfile } = useAuth();
+  const role = useRole();
+  const [image, setImage] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const image = form.image.files[0];
+    const name = user?.displayName;
+    // console.log(image);
+    if (!image) {
+      return toast.error("please input a picture");
+    }
+    const photoURL = await getImageFromBB(image);
+    // console.log(photoURL);
+    await updateUserProfile(name, photoURL);
+    toast.success("Profile updated successfully");
+    setIsDialogOpen(false); // Close the dialog on successful submission
+  };
+
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(URL.createObjectURL(event.target.files[0]));
+    }
+  };
   return (
     <div className="flex w-full justify-center bg-gray-200">
       <div className="container mx-auto py-8">
@@ -17,19 +56,46 @@ const UserMyProfile = () => {
                 ></img>
                 <h1 className="text-xl font-bold">{user?.displayName}</h1>
                 <p className="text-gray-700">Role : {role}</p>
+
                 <div className="mt-6 flex flex-wrap gap-4 justify-center">
-                  <a
-                    href="#"
-                    className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
-                  >
-                    Contact
-                  </a>
-                  <a
-                    href="#"
-                    className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"
-                  >
-                    Resume
-                  </a>
+                  {/* <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
+                    Update Profile
+                  </button> */}
+                  {/* update modal start */}
+                  <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                    <DialogTrigger asChild>
+                      <Button variant="outline">Update Profile Picture</Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                      <DialogHeader>
+                        <DialogTitle>Upload A Picture</DialogTitle>
+                        <DialogDescription>
+                          Make changes to your profile picture here. Click save
+                          when you are done.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <form onSubmit={handleSubmit} className="grid gap-4 py-4">
+                        <div className="flex justify-center items-center gap-4">
+                          <img alt="preview image" src={image} />
+                        </div>
+                        <div className="">
+                          <Label htmlFor="username" className="text-right">
+                            Choose a Picture
+                          </Label>
+                          <Input
+                            type="file"
+                            name="image"
+                            onChange={onImageChange}
+                            className="col-span-3"
+                          />
+                        </div>
+                        <DialogFooter>
+                          <Button type="submit">Save changes</Button>
+                        </DialogFooter>
+                      </form>
+                    </DialogContent>
+                  </Dialog>
+                  {/* update modal end */}
                 </div>
               </div>
               <hr className="my-6 border-t border-gray-300" />
@@ -51,13 +117,18 @@ const UserMyProfile = () => {
             <div className="bg-white shadow rounded-lg p-6">
               <h2 className="text-xl font-bold mb-4">About Me</h2>
               <p className="text-gray-700">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                finibus est vitae tortor ullamcorper, ut vestibulum velit
-                convallis. Aenean posuere risus non velit egestas suscipit. Nunc
-                finibus vel ante id euismod. Vestibulum ante ipsum primis in
-                faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam
-                erat volutpat. Nulla vulputate pharetra tellus, in luctus risus
-                rhoncus id.
+                Competently foster market-driven web services and focused
+                quality vectors. Intrinsicly innovate interoperable information
+                for fully researched intellectual capital. Enthusiastically
+                customize clicks-and-mortar internal or organic sources
+                vis-a-vis seamless communities. Seamlessly benchmark installed
+                base portals rather than backward-compatible materials.
+                Proactively promote one-to-one applications before seamless
+                methodologies. Holisticly impact tactical total linkage via team
+                driven processes. Distinctively transition real-time catalysts
+                for change without value-added architectures. Objectively
+                visualize premium meta-services and front-end opportunities.
+                Dramatically harness magnetic solutions rather than.
               </p>
 
               <h3 className="font-semibold text-center mt-3 -mb-2">
@@ -161,9 +232,14 @@ const UserMyProfile = () => {
                   </p>
                 </div>
                 <p className="mt-2">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  finibus est vitae tortor ullamcorper, ut vestibulum velit
-                  convallis. Aenean posuere risus non velit egestas suscipit.
+                  Globally disseminate global materials for accurate services.
+                  Rapidiously recaptiualize collaborative alignments rather than
+                  principle-centered initiatives. Objectively foster
+                  client-based data before professional human capital.
+                  Proactively streamline sustainable content without
+                  backward-compatible bandwidth. Intrinsicly evisculate
+                  orthogonal testing procedures and future-proof manufactured
+                  products. Enthusiastically morph.
                 </p>
               </div>
               <div className="mb-6">
@@ -175,9 +251,14 @@ const UserMyProfile = () => {
                   </p>
                 </div>
                 <p className="mt-2">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  finibus est vitae tortor ullamcorper, ut vestibulum velit
-                  convallis. Aenean posuere risus non velit egestas suscipit.
+                  Globally disseminate global materials for accurate services.
+                  Rapidiously recaptiualize collaborative alignments rather than
+                  principle-centered initiatives. Objectively foster
+                  client-based data before professional human capital.
+                  Proactively streamline sustainable content without
+                  backward-compatible bandwidth. Intrinsicly evisculate
+                  orthogonal testing procedures and future-proof manufactured
+                  products. Enthusiastically morph.
                 </p>
               </div>
               <div className="mb-6">
@@ -189,9 +270,14 @@ const UserMyProfile = () => {
                   </p>
                 </div>
                 <p className="mt-2">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  finibus est vitae tortor ullamcorper, ut vestibulum velit
-                  convallis. Aenean posuere risus non velit egestas suscipit.
+                  Globally disseminate global materials for accurate services.
+                  Rapidiously recaptiualize collaborative alignments rather than
+                  principle-centered initiatives. Objectively foster
+                  client-based data before professional human capital.
+                  Proactively streamline sustainable content without
+                  backward-compatible bandwidth. Intrinsicly evisculate
+                  orthogonal testing procedures and future-proof manufactured
+                  products. Enthusiastically morph.
                 </p>
               </div>
             </div>
