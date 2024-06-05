@@ -93,6 +93,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        // index: true,
         path: "statistics",
         element: (
           <AdminRoute>
