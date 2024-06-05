@@ -44,13 +44,13 @@ const RegistrationPage = () => {
         const { data } = await axiosPublic.post(`/users`, userInfo);
         if (data.insertedId) {
           toast.success("Registered Successfull");
-          navigate("/");
+          navigate(location?.state ? location?.state : "/");
         }
       } catch (err) {
         toast.error(err.message);
         // console.log(err);
       }
-      navigate("/");
+      navigate(location?.state ? location?.state : "/");
       toast.success("Sign In Successfull");
     } catch (err) {
       // console.log(err);

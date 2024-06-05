@@ -54,7 +54,7 @@ const UserBookAParcel = () => {
     },
     onSuccess: (data) => {
       console.log(data);
-      toast.success("Successfully Add Your Booking.");
+      toast.success("Successfully Added Your Booking.");
       navigate("/dashboard/myParcels");
     },
   });

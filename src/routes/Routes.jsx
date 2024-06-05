@@ -14,8 +14,9 @@ import ErrorPage from "@/pages/ErrorPage";
 import Home from "@/pages/Home/Home";
 import LoginPage from "@/pages/Login/LoginPage";
 import RegistrationPage from "@/pages/RegistrationPage/RegistrationPage";
-import PrivateRoute from "@/providers/PrivateRoute";
 import { createBrowserRouter } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +55,8 @@ export const router = createBrowserRouter([
       {
         path: "updateParcel/:id",
         element: <UpdateParcel />,
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/bookings/${params.id}`),
       },
       // deliver men routes
       {
@@ -67,19 +70,35 @@ export const router = createBrowserRouter([
       // admin routes
       {
         path: "allParcels",
-        element: <AllParcels />,
+        element: (
+          <AdminRoute>
+            <AllParcels />
+          </AdminRoute>
+        ),
       },
       {
         path: "allUsers",
-        element: <AllUsers />,
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
       },
       {
         path: "allDeliveryMen",
-        element: <AllDeliveryMen />,
+        element: (
+          <AdminRoute>
+            <AllDeliveryMen />
+          </AdminRoute>
+        ),
       },
       {
         path: "statistics",
-        element: <Statistics />,
+        element: (
+          <AdminRoute>
+            <Statistics />
+          </AdminRoute>
+        ),
       },
     ],
   },

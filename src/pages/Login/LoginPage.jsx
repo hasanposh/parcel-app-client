@@ -17,7 +17,7 @@ const RegistrationPage = () => {
       // user sign in
       const result = await signIn(email, password);
       console.log(result);
-      navigate("/");
+      navigate(location?.state ? location?.state : "/");
       toast.success("Sign in Successfull");
     } catch (err) {
       console.log(err);
