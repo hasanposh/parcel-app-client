@@ -32,6 +32,9 @@ const AllParcels = () => {
   }
   return (
     <div className="w-full p-10 bg-gray-200">
+        <h2 className="text-center font-semibold text-4xl py-4">
+       All Parcels :
+      </h2>
       <Table>
         <TableCaption>A list of your users recent Bookings.</TableCaption>
         <TableHeader>
