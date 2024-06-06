@@ -3,17 +3,21 @@ import useAxiosSecure from "./useAxiosSecure";
 
 const useAllUsers = () => {
   const axiosSecure = useAxiosSecure();
-  const { data, refetch, isLoading } = useQuery({
+  const {
+    data: allUsers = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["allUsers"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(
-        `${import.meta.env.VITE_API_URL}/users`
+        `${import.meta.env.VITE_API_URL}/allUsers`
       );
 
       return data;
     },
   });
-  return [data, refetch, isLoading];
+  return [allUsers, refetch, isLoading];
 };
 
 export default useAllUsers;

@@ -25,7 +25,7 @@ const RegistrationPage = () => {
     try {
       setLoading(true);
       const imageUrl = await getImageFromBB(image);
-      // console.log(imageUrl);
+      console.log(imageUrl);
 
       // user registration
       const result = await createUser(email, password);

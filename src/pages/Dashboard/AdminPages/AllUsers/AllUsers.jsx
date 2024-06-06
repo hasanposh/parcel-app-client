@@ -9,12 +9,14 @@ import {
 } from "@/components/ui/table";
 import AdminAllUsersTableRow from "@/components/Dashboard/Tables/AdminAllUsersTableRow";
 import LoadingSkeleton from "@/components/LoadingSkeleton/LoadingSkeleton";
+import useAllDeliveryMen from "@/hooks/useAllDeliveryMen";
 
 const AllUsers = () => {
-  const [data, refetch, isLoading] = useAllUsers();
-//   console.log(data);
-//   const allUsersOnly = data?.filter((d) => d.role === "user");
-//   console.log(allUsersOnly);
+  const [allUsers, refetch, isLoading] = useAllUsers();
+  
+  //   console.log(data);
+  //   const allUsersOnly = data?.filter((d) => d.role === "user");
+  //   console.log(allUsersOnly);
   if (isLoading) {
     return <LoadingSkeleton />;
   }
@@ -33,7 +35,7 @@ const AllUsers = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data?.map((user) => (
+          {allUsers?.map((user) => (
             <AdminAllUsersTableRow key={user._id} user={user} />
           ))}
         </TableBody>

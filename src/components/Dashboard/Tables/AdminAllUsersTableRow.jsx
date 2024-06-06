@@ -1,22 +1,32 @@
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 
-const AdminAllUsersTableRow = ({user}) => {
-    const {name} = user
-    // console.log(user)
-    return (
-        <TableRow>
-      <TableCell>{name}</TableCell>
-      <TableCell>{}</TableCell>
 
-      <TableCell>{}</TableCell>
+const AdminAllUsersTableRow = ({ user }) => {
+  const { name, numberOfParcels } = user;
+
+  
+
+  // console.log(user)
+  const phoneNumber = `01${Math.floor(Math.random() * 10)}${Math.floor(
+    Math.random() * 10
+  )}${Math.floor(Math.random() * Math.pow(10, 7))
+    .toString()
+    .padStart(7, "0")}`;
+
+
+  return (
+    <TableRow>
+      <TableCell>{name}</TableCell>
+      <TableCell>+88 {phoneNumber}</TableCell>
+
+      <TableCell>{numberOfParcels}</TableCell>
       <TableCell>৳ {}</TableCell>
-      <TableCell>{}</TableCell>
       <TableCell>
-        <Button className="px-5">Manage</Button>
+       <Button>Heelo</Button>
       </TableCell>
     </TableRow>
-    );
+  );
 };
 
 export default AdminAllUsersTableRow;

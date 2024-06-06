@@ -26,7 +26,7 @@ const AllParcels = () => {
       return data;
     },
   });
-  console.log(allParcels);
+  // console.log(allParcels);
   if (isPending) {
     return <LoadingSkeleton />;
   }
