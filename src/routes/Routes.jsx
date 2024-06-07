@@ -17,6 +17,8 @@ import RegistrationPage from "@/pages/RegistrationPage/RegistrationPage";
 import { createBrowserRouter } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
+import PaymentDone from "@/components/Payment/PaymentDone";
+import PaymentPage from "@/components/Payment/PaymentPage";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +59,16 @@ export const router = createBrowserRouter([
         element: <UpdateParcel />,
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_API_URL}/bookings/${params.id}`),
+      },
+      {
+        path: "payment/:id",
+        element: <PaymentPage />,
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/bookings/${params.id}`),
+      },
+      {
+        path: "paymentSuccess",
+        element: <PaymentDone />,
       },
       // deliver men routes
       {

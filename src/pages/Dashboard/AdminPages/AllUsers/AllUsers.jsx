@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/table";
 import AdminAllUsersTableRow from "@/components/Dashboard/Tables/AdminAllUsersTableRow";
 import LoadingSkeleton from "@/components/LoadingSkeleton/LoadingSkeleton";
-import useAllDeliveryMen from "@/hooks/useAllDeliveryMen";
 
 const AllUsers = () => {
   const [allUsers, refetch, isLoading] = useAllUsers();

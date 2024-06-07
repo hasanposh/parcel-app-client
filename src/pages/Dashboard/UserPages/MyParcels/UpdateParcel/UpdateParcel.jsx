@@ -10,7 +10,7 @@ const UpdateParcel = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const { id,bookingStatus } = useParams();
-//   console.log(id)
+  // console.log(id)
 
   const calcPrice = (weight) => {
     if (weight == 1) {

@@ -29,6 +29,7 @@ const UserMyParcelsTable = ({ parcel, handleDelete }) => {
   //   console.log(today)
   // const dateString = today.toISOString().split('T')[0];
   //   console.log(formated);
+  console.log(calcPrice)
   return (
     <TableRow>
       <TableCell>{parcelType}</TableCell>
@@ -56,7 +57,7 @@ const UserMyParcelsTable = ({ parcel, handleDelete }) => {
         {bookingStatus === "delivered" && <Button>Review</Button>}
       </TableCell>
       <TableCell>
-        <Button className="px-5">Pay</Button>
+        <Link to={`/dashboard/payment/${_id}`} className="px-5 py-3 text-white rounded-md hover:bg-blue-600 bg-blue-400" >Pay</Link>
       </TableCell>
     </TableRow>
   );

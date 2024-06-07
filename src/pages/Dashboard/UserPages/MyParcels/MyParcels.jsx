@@ -12,32 +12,36 @@ import {
 } from "@/components/ui/table";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import useUserMyParcels from "@/hooks/useUserMyParcels";
+import LoadingSkeleton from "@/components/LoadingSkeleton/LoadingSkeleton";
 
 const MyParcels = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const {
-    data: parcels = [],
-    isLoading,
-    refetch,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["my-parcels", user?.email],
-    queryFn: async () => {
-      try {
-        const { data } = await axiosSecure.get(`/bookings/${user?.email}`);
-        // console.log("Fetched data:", data); // Log fetched data
-        return data;
-      } catch (error) {
-        console.error("Error fetching data:", error); // Log error if any
-        throw error;
-      }
-    },
-  });
+  // const {
+  //   data: parcels = [],
+  //   isLoading,
+  //   refetch,
+  //   isError,
+  //   error,
+  // } = useQuery({
+  //   queryKey: ["my-parcels", user?.email],
+  //   queryFn: async () => {
+  //     try {
+  //       const { data } = await axiosSecure.get(`/bookings/${user?.email}`);
+  //       // console.log("Fetched data:", data); // Log fetched data
+  //       return data;
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error); // Log error if any
+  //       throw error;
+  //     }
+  //   },
+  // });
+
+  const [parcels, isLoading, refetch] = useUserMyParcels();
   //   console.log(parcels)
   //   Post
-  const { mutateAsync  } = useMutation({
+  const { mutateAsync } = useMutation({
     mutationFn: async (id) => {
       const { data } = await axiosSecure.delete(`/bookings/${id}`);
       return data;
@@ -76,8 +80,10 @@ const MyParcels = () => {
         }
       }
     });
-    
   };
+  if (isLoading) {
+    return <LoadingSkeleton />;
+  }
   return (
     <div className="w-full p-10 bg-gray-200">
       <h2 className="text-center font-semibold text-4xl py-4">
