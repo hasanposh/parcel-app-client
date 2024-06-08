@@ -5,24 +5,13 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 const AdminAllUsersTableRow = ({ user, refetch }) => {
-  const { name, numberOfParcels, totalCalcPrice, email } = user;
+  const { name, totalBookingsCount, totalCalcPrice, email } = user;
   const axiosSecure = useAxiosSecure();
 
-  const changeRoles = async (role, email) => {
-    console.log(role, email);
-    // const role = role;
-    // post on database
-    try {
-      console.log(role, email);
-      await mutateAsync({role, email});
-    } catch (err) {
-      console.log(err);
-    }
-  };
   //   put user role change
   const { mutateAsync } = useMutation({
-    mutationFn: async ({role, email}) => {
-      console.log(role, email);
+    mutationFn: async ({ role, email }) => {
+      // console.log(role, email);
       const { data } = await axiosSecure.put(`/users/${email}`, { role });
       return data;
     },
@@ -32,6 +21,17 @@ const AdminAllUsersTableRow = ({ user, refetch }) => {
       toast.success("Successfully Updated the Role");
     },
   });
+  const changeRoles = async (role, email) => {
+    // console.log(role, email);
+    // const role = role;
+    // post on database
+    try {
+      // console.log(role, email);
+      await mutateAsync({ role, email });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   // console.log(user)
   const phoneNumber = `01${Math.floor(Math.random() * 10)}${Math.floor(
     Math.random() * 10
@@ -44,7 +44,7 @@ const AdminAllUsersTableRow = ({ user, refetch }) => {
       <TableCell>{name}</TableCell>
       <TableCell>+88 {phoneNumber}</TableCell>
 
-      <TableCell>{numberOfParcels}</TableCell>
+      <TableCell>{totalBookingsCount}</TableCell>
       <TableCell>$ {totalCalcPrice}</TableCell>
       <TableCell>
         <Button

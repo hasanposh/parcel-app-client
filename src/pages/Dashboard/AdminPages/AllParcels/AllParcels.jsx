@@ -77,7 +77,7 @@ const AllParcels = () => {
       </form>
 
       <Table>
-        <TableCaption>A list of your users recent Bookings.</TableCaption>
+        <TableCaption>A list of your users parcels.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Sender Name</TableHead>

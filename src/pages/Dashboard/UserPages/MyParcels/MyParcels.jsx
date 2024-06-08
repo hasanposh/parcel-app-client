@@ -1,7 +1,7 @@
 import UserMyParcelsTable from "@/components/Dashboard/Tables/UserMyParcelsTable";
 import useAuth from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import {
   Table,
   TableBody,
@@ -18,25 +18,7 @@ import LoadingSkeleton from "@/components/LoadingSkeleton/LoadingSkeleton";
 const MyParcels = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  // const {
-  //   data: parcels = [],
-  //   isLoading,
-  //   refetch,
-  //   isError,
-  //   error,
-  // } = useQuery({
-  //   queryKey: ["my-parcels", user?.email],
-  //   queryFn: async () => {
-  //     try {
-  //       const { data } = await axiosSecure.get(`/bookings/${user?.email}`);
-  //       // console.log("Fetched data:", data); // Log fetched data
-  //       return data;
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error); // Log error if any
-  //       throw error;
-  //     }
-  //   },
-  // });
+
 
   const [parcels, isLoading, refetch] = useUserMyParcels();
   //   console.log(parcels)

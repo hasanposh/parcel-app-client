@@ -15,7 +15,7 @@ const AllUsers = () => {
 
   //   console.log(data);
   //   const allUsersOnly = data?.filter((d) => d.role === "user");
-  // console.log(allUsers);
+  console.log(allUsers);
   if (isLoading) {
     return <LoadingSkeleton />;
   }
@@ -23,7 +23,7 @@ const AllUsers = () => {
     <div className="w-full p-10 bg-gray-200">
       <h2 className="text-center font-semibold text-4xl py-4">All Users :</h2>
       <Table>
-        <TableCaption>A list of your recent Bookings.</TableCaption>
+        <TableCaption>A list of your all users.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>User Name</TableHead>

@@ -6,14 +6,14 @@ const phoneNumber = `01${Math.floor(Math.random() * 10)}${Math.floor(
   .toString()
   .padStart(7, "0")}`;
 const AdminAllDeliverMenTableRow = ({ deliveryMan }) => {
-  const { name, numberOfParcels } = deliveryMan;
+  const { name, numberOfParcels, avgRating } = deliveryMan;
   return (
     <TableRow>
       <TableCell>{name}</TableCell>
       <TableCell>+88 {phoneNumber}</TableCell>
 
       <TableCell>{numberOfParcels}</TableCell>
-      <TableCell>{}</TableCell>
+      <TableCell>{avgRating ? avgRating : 0}</TableCell>
     </TableRow>
   );
 };
