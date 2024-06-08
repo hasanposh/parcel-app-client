@@ -18,7 +18,7 @@ const Sidebar = () => {
   const { logOut } = useAuth();
   const [role] = useRole();
   // const role = "admin";
-  // console.log(role)
+  console.log(role)
   const navLinks = (
     <>
       {/* admin */}

@@ -12,10 +12,10 @@ import LoadingSkeleton from "@/components/LoadingSkeleton/LoadingSkeleton";
 
 const AllUsers = () => {
   const [allUsers, refetch, isLoading] = useAllUsers();
-  
+
   //   console.log(data);
   //   const allUsersOnly = data?.filter((d) => d.role === "user");
-  //   console.log(allUsersOnly);
+  // console.log(allUsers);
   if (isLoading) {
     return <LoadingSkeleton />;
   }
@@ -35,7 +35,11 @@ const AllUsers = () => {
         </TableHeader>
         <TableBody>
           {allUsers?.map((user) => (
-            <AdminAllUsersTableRow key={user._id} user={user} />
+            <AdminAllUsersTableRow
+              key={user._id}
+              refetch={refetch}
+              user={user}
+            />
           ))}
         </TableBody>
       </Table>

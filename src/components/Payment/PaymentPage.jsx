@@ -26,8 +26,9 @@ const PaymentPage = () => {
       <h2 className="text-center font-semibold text-4xl py-4">
         Please Complete the Payment :
       </h2>
+      <p>Your bill : ${parcel.calcPrice}</p>
       <Elements stripe={stripePromise}>
-        <CheckoutForm price={parcel.calcPrice} />
+        <CheckoutForm parcel={parcel} />
       </Elements>
     </div>
   );

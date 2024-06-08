@@ -3,6 +3,7 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
+import { toast } from "react-toastify";
 
 const UserMyParcelsTable = ({ parcel, handleDelete }) => {
   const {
@@ -23,13 +24,14 @@ const UserMyParcelsTable = ({ parcel, handleDelete }) => {
     //   currentDate,
     bookingStatus,
     approximateDeliveryDate,
-    deliveryMenId,
+    selectedDeliveryMan,
+    payment,
   } = parcel;
   //   const formated = format(BookingDate, "yyyy-MM-dd");
   //   console.log(today)
   // const dateString = today.toISOString().split('T')[0];
   //   console.log(formated);
-  console.log(calcPrice)
+  console.log(calcPrice);
   return (
     <TableRow>
       <TableCell>{parcelType}</TableCell>
@@ -39,7 +41,7 @@ const UserMyParcelsTable = ({ parcel, handleDelete }) => {
       </TableCell>
       <TableCell>{format(BookingDate, "yyyy-MM-dd")}</TableCell>
       <TableCell>
-        {deliveryMenId ? deliveryMenId : "Will be assigned"}
+        {selectedDeliveryMan ? selectedDeliveryMan : "Will be assigned"}
       </TableCell>
       <TableCell>{bookingStatus}</TableCell>
       <TableCell className="flex gap-2">
@@ -57,7 +59,18 @@ const UserMyParcelsTable = ({ parcel, handleDelete }) => {
         {bookingStatus === "delivered" && <Button>Review</Button>}
       </TableCell>
       <TableCell>
-        <Link to={`/dashboard/payment/${_id}`} className="px-5 py-3 text-white rounded-md hover:bg-blue-600 bg-blue-400" >Pay</Link>
+        {payment ? (
+          <Button onClick={()=>toast('Payment Complete')} className="px-5 py-3 text-white rounded-md hover:bg-blue-600 bg-blue-400">
+            Pay
+          </Button>
+        ) : (
+          <Link
+            to={`/dashboard/payment/${_id}`}
+            className="px-5 py-3 text-white rounded-md hover:bg-blue-600 bg-blue-400"
+          >
+            Pay
+          </Link>
+        )}
       </TableCell>
     </TableRow>
   );

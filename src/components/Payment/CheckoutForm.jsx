@@ -4,8 +4,11 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Button } from "../ui/button";
+import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
 
-const CheckoutForm = ({ price }) => {
+const CheckoutForm = ({ parcel }) => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
@@ -13,10 +16,10 @@ const CheckoutForm = ({ price }) => {
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  // const [cart, refetch] = useCart();
   const navigate = useNavigate();
-
-  // const totalPrice = cart.reduce((total, item) => total + item.price, 0)
+  const price = parcel.calcPrice;
+  const parcelId = parcel._id;
+  console.log(price);
 
   useEffect(() => {
     if (price > 0) {
@@ -28,6 +31,22 @@ const CheckoutForm = ({ price }) => {
         });
     }
   }, [axiosSecure, price]);
+
+  //   Post on  booking for payment confirmation
+  const { mutateAsync } = useMutation({
+    mutationFn: async () => {
+      const { data } = await axiosSecure.put(`/bookings/${parcelId}`, {
+        payment: "done",
+      });
+      return data;
+    },
+    onSuccess: (data) => {
+      console.log(data);
+      toast.success("Successfully Payment Done.");
+
+      navigate("/dashboard/paymentSuccess");
+    },
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -76,28 +95,24 @@ const CheckoutForm = ({ price }) => {
         setTransactionId(paymentIntent.id);
 
         // now save the payment in the database
-        // const payment = {
-        //   email: user.email,
-        //   price: price,
-        //   transactionId: paymentIntent.id,
-        //   date: new Date(), // utc date convert. use moment js to
-        //   cartIds: cart.map((item) => item._id),
-        //   menuItemIds: cart.map((item) => item.menuId),
-        //   status: "pending",
-        // };
+        const payment = {
+          email: user.email,
+          price: price,
+          transactionId: paymentIntent.id,
+          date: new Date(), // utc date convert. use moment js to
+          parcelId,
+        };
 
-        const res = await axiosSecure.post("/payments", );
+        const res = await axiosSecure.post("/payments", payment);
         console.log("payment saved", res.data);
         // refetch();
-        if (res.data?.paymentResult?.insertedId) {
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Payment Done Successfully",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          navigate("/dashboard/paymentSuccess");
+        if (res.data?.insertedId) {
+          // post on database
+          try {
+            await mutateAsync();
+          } catch (err) {
+            console.log(err);
+          }
         }
       }
     }
@@ -120,13 +135,13 @@ const CheckoutForm = ({ price }) => {
           },
         }}
       />
-      <button
-        className="btn btn-sm btn-primary my-4"
+      <Button
+        className=" my-4"
         type="submit"
         disabled={!stripe || !clientSecret}
       >
         Pay
-      </button>
+      </Button>
       <p className="text-red-600">{error}</p>
       {transactionId && (
         <p className="text-green-600"> Your transaction id: {transactionId}</p>
