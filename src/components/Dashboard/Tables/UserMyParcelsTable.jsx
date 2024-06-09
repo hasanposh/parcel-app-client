@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import useAuth from "@/hooks/useAuth";
-import useAxiosPublic from "@/hooks/useAxiosPublic";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 const UserMyParcelsTable = ({ parcel, handleDelete }) => {
