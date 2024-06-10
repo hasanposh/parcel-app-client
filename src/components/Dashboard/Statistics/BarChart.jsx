@@ -6,64 +6,65 @@ import ReactApexChart from "react-apexcharts";
 
 const BarChart = () => {
   const axiosSecure = useAxiosSecure();
-  const [chartData, setChartData] = useState();
+  const [chartData, setChartData] = useState(null);
 
-  const { data, isLoading } = useQuery({
+  const { data: data = [], isLoading } = useQuery({
     queryKey: ["bookingByDelivery"],
-    // enabled: !loading && !!user?.email,
     queryFn: async () => {
       const { data } = await axiosSecure(`/stats-lineChart`);
       return data;
     },
   });
-  console.log(data);
+
   useEffect(() => {
-    setChartData({
-      series: [
-        {
-          name: "Delivery",
-          data: data?.map((d) => d.totalBookings),
-        },
-      ],
-      options: {
-        chart: {
-          height: 350,
-          type: "line",
-          zoom: {
+    if (!isLoading && data.length > 0) {
+      setChartData({
+        series: [
+          {
+            name: "Delivery",
+            data: data.map((d) => d.totalBookings),
+          },
+        ],
+        options: {
+          chart: {
+            height: 350,
+            type: "line",
+            zoom: {
+              enabled: false,
+            },
+          },
+          dataLabels: {
             enabled: false,
           },
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        stroke: {
-          curve: "straight",
-        },
-        title: {
-          text: "Chart that shows bookings by Delivery",
-          align: "left",
-        },
-        grid: {
-          row: {
-            colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-            opacity: 0.5,
+          stroke: {
+            curve: "straight",
+          },
+          title: {
+            text: "Chart that shows bookings by Delivery",
+            align: "left",
+          },
+          grid: {
+            row: {
+              colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+              opacity: 0.5,
+            },
+          },
+          xaxis: {
+            categories: data.map((d) => d.deliveredBookings),
           },
         },
-        xaxis: {
-          categories: data?.map((d) => d.deliveredBookings),
-        },
-      },
-    });
-  }, [data]);
+      });
+    }
+  }, [isLoading, data]);
 
   if (isLoading) return <LoadingSkeleton />;
-  return (
-    <div className="w-3/4 mx-auto py-10">
-     
+  if (!chartData) return null;
 
+  return (
+    <div className="md:w-3/4 mx-auto py-10">
       <ReactApexChart
-        options={chartData?.options}
-        series={chartData?.series}
+        options={chartData.options}
+        series={chartData.series}
         type="line"
         height={350}
       />

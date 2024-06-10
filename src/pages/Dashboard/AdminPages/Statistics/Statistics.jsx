@@ -7,60 +7,60 @@ import ReactApexChart from "react-apexcharts";
 
 const Statistics = () => {
   const axiosSecure = useAxiosSecure();
-  const [chartData, setChartData] = useState();
+  const [chartData, setChartData] = useState(null);
 
-  const { data, isLoading } = useQuery({
+  const { data: data = [], isLoading } = useQuery({
     queryKey: ["bookingByDate"],
-    // enabled: !loading && !!user?.email,
     queryFn: async () => {
       const { data } = await axiosSecure(`/stats`);
       return data;
     },
   });
-  console.log(data);
+
   useEffect(() => {
-    setChartData({
-      series: [
-        {
-          data: data?.map((d) => d.count),
-        },
-      ],
-      options: {
-        chart: {
-          type: "bar",
-          height: 350,
-        },
-        plotOptions: {
-          bar: {
-            borderRadius: 4,
-            borderRadiusApplication: "end",
-            horizontal: true,
+    if (!isLoading && data.length > 0) {
+      setChartData({
+        series: [
+          {
+            data: data.map((d) => d.count),
           },
-        },
-        title: {
+        ],
+        options: {
+          chart: {
+            type: "bar",
+            height: 350,
+          },
+          plotOptions: {
+            bar: {
+              borderRadius: 4,
+              borderRadiusApplication: "end",
+              horizontal: true,
+            },
+          },
+          title: {
             text: "Chart that shows date by bookings",
             align: "left",
           },
-        dataLabels: {
-          enabled: false,
+          dataLabels: {
+            enabled: false,
+          },
+          xaxis: {
+            categories: data.map((d) => d._id),
+          },
         },
-        xaxis: {
-          categories: data?.map((d) => d._id),
-        },
-      },
-    });
-  }, [data]);
+      });
+    }
+  }, [isLoading, data]);
 
   if (isLoading) return <LoadingSkeleton />;
+  if (!chartData) return null;
 
   return (
-    <div className="w-full p-10 bg-gray-200">
-      <h2 className="text-center font-semibold text-4xl py-4">
+    <div className="w-full md:p-10 bg-gray-200">
+      <h2 className="text-center font-semibold md:text-4xl py-4">
         Current Stats of Your Site:
       </h2>
-      <div className="w-3/4 mx-auto py-10">
-      
-
+      <div className="md:w-3/4 mx-auto py-10">
         <ReactApexChart
           options={chartData.options}
           series={chartData.series}

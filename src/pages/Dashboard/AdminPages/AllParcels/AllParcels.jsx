@@ -49,11 +49,11 @@ const AllParcels = () => {
     return <LoadingSkeleton />;
   }
   return (
-    <div className="w-full p-10 bg-gray-200">
-      <h2 className="text-center font-semibold text-4xl py-4">All Parcels :</h2>
+    <div className="w-full md:p-10 p-4 bg-gray-200">
+      <h2 className="text-center font-semibold md:text-4xl py-4">All Parcels :</h2>
       <h2 className=" font-semibold text-2xl py-4">Filter parcels by requested date :</h2>
       <form onSubmit={handleSearch} className="mb-4">
-        <div className="flex gap-4 ">
+        <div className="flex flex-col md:flex-row gap-4 ">
          <div className="flex w-full items-center gap-4">
          <label className="block mb-2 text-sm font-medium">From</label>
           <input

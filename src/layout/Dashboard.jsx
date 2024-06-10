@@ -3,7 +3,7 @@ import Sidebar from "../pages/Dashboard/Sidebar/Sidebar";
 
 const Dashboard = () => {
   return (
-    <div className="flex ">
+    <div className="md:flex block ">
       {/* sidebar */}
       <Sidebar />
       {/* outlet */}

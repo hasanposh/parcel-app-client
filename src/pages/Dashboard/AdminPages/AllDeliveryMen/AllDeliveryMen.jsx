@@ -12,14 +12,14 @@ import AdminAllDeliverMenTableRow from "@/components/Dashboard/Tables/AdminAllDe
 
 const AllDeliveryMen = () => {
   const [data, refetch, isLoading] = useAllDeliveryMen();
-  console.log(data)
+  // console.log(data)
    //   console.log(allUsersOnly);
    if (isLoading) {
     return <LoadingSkeleton />;
   }
   return (
-    <div className="w-full p-10 bg-gray-200">
-      <h2 className="text-center font-semibold text-4xl py-4">All Delivery Men :</h2>
+    <div className="w-full md:p-10 bg-gray-200">
+      <h2 className="text-center font-semibold md:text-4xl py-4">All Delivery Men :</h2>
       <Table>
         <TableCaption>A list of your delivery men.</TableCaption>
         <TableHeader>

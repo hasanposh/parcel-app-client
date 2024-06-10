@@ -25,8 +25,8 @@ const MyReviews = () => {
   //     console.log(date)
   console.log(myReviews);
   return (
-    <div className="w-full p-10 bg-gray-200">
-      <h2 className="text-center font-semibold text-4xl py-4">
+    <div className="w-full md:p-10 p-4 bg-gray-200">
+      <h2 className="text-center font-semibold md:text-4xl py-4">
         Hello! {user?.displayName}, Your reviews are here:
       </h2>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">

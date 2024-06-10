@@ -36,6 +36,7 @@ const RegistrationPage = () => {
       // user entry in database
       const userInfo = {
         name,
+        imageUrl,
         email,
         role: selectedRole,
       };

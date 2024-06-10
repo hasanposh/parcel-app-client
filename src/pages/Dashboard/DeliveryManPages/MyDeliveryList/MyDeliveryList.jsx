@@ -36,8 +36,8 @@ const MyDeliveryList = () => {
 
 
   return (
-    <div className="w-full p-10 bg-gray-200">
-      <h2 className="text-center font-semibold text-4xl py-4">
+    <div className="w-full md:p-10 bg-gray-200">
+      <h2 className="text-center font-semibold md:text-4xl py-4">
         Hello! {user?.displayName}, Your Delivery List :
       </h2>
       <Table>

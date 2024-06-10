@@ -80,7 +80,7 @@ const Sidebar = () => {
     </>
   );
   return (
-    <div className="min-h-screen p-3 space-y-2 md:w-72 bg-red-900 text-white">
+    <div className="md:min-h-screen p-3 space-y-2 md:w-72 bg-red-900 text-white">
       <div className="divide-y h-full flex flex-col justify-between">
         <div>
           <Link
@@ -97,7 +97,7 @@ const Sidebar = () => {
               <span className="text-yellow-500">k</span>a
             </h2>
           </Link>
-          <ul className="pt-2 pb-4 space-y-1 text-md">{navLinks}</ul>
+          <ul className="pt-2 pb-4 grid grid-cols-2 items-center md:block space-y-1 text-md">{navLinks}</ul>
         </div>
         <div>
           <ul className="pt-4 pb-2 space-y-1 text-md">
