@@ -118,7 +118,7 @@ const CheckoutForm = ({ parcel }) => {
     }
   };
   return (
-    <form onSubmit={handleSubmit} className="w-1/4">
+    <form onSubmit={handleSubmit} className="w-full text-black lg:w-1/4">
       <CardElement
         options={{
           style: {
@@ -126,7 +126,7 @@ const CheckoutForm = ({ parcel }) => {
               fontSize: "16px",
               color: "#424770",
               "::placeholder": {
-                color: "#aab7c4",
+                color: "#000000",
               },
             },
             invalid: {
