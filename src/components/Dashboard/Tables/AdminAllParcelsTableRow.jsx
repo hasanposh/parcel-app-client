@@ -29,10 +29,11 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useMutation } from "@tanstack/react-query";
 
 const AdminAllParcelsTableRow = ({ parcel, refetch }) => {
+  const axiosSecure = useAxiosSecure();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [allDeliveryMen] = useAllDeliveryMen();
   const [selectedDeliveryMan, setSelectedDeliveryMan] = useState("");
-  const axiosSecure = useAxiosSecure();
+  
   const {
     _id,
     name,
@@ -127,7 +128,8 @@ const AdminAllParcelsTableRow = ({ parcel, refetch }) => {
                         {allDeliveryMen.map((deliveryMan) => (
                           <SelectItem
                             key={deliveryMan._id}
-                            value={deliveryMan._id}
+                            value={deliveryMan._id }
+                           
                           >
                             {deliveryMan.name}
                           </SelectItem>
@@ -154,6 +156,7 @@ const AdminAllParcelsTableRow = ({ parcel, refetch }) => {
                     type="date"
                     // value={approximateDeliveryDate}
                     // onChange={handleDateChange}
+                    required
                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
                   />
                 </div>

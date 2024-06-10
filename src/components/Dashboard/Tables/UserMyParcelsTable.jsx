@@ -42,6 +42,8 @@ const UserMyParcelsTable = ({ parcel, handleDelete }) => {
     const rating = Number(form.rating.value);
     const feedback = form.feedback.value;
     const parcelId = _id;
+    const date = new Date();
+    console.log(date);
 
     const reviewInfo = {
       name,
@@ -51,6 +53,7 @@ const UserMyParcelsTable = ({ parcel, handleDelete }) => {
       selectedDeliveryMan,
       feedback,
       parcelId,
+      date,
     };
     // console.table(reviewInfo);
     try {
@@ -90,7 +93,7 @@ const UserMyParcelsTable = ({ parcel, handleDelete }) => {
         </Button>
       </TableCell>
       <TableCell>
-        {bookingStatus === "delivered" && (
+        {bookingStatus === "Delivered" && (
           <div>
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
@@ -105,7 +108,7 @@ const UserMyParcelsTable = ({ parcel, handleDelete }) => {
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="grid gap-4 py-4">
                   <div className="flex items-center gap-4">
-                    <img className="size-36" src={user?.photoURL} alt="" />
+                    <img className="size-36 object-cover" src={user?.photoURL} alt="" />
                     <div className="w-full">
                       <div>
                         <label className="block mb-2 text-sm font-medium">
@@ -140,6 +143,7 @@ const UserMyParcelsTable = ({ parcel, handleDelete }) => {
                     <select
                       className="block w-full px-4 py-2 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
                       name="rating"
+                      required
                       // onChange={(e) => setRating(Number(e.target.value))}
                     >
                       <option value="">Select a rating</option>
@@ -155,6 +159,7 @@ const UserMyParcelsTable = ({ parcel, handleDelete }) => {
                       Your Feedback
                     </label>
                     <textarea
+                      required
                       className="block w-full px-4 py-2 bg-white border rounded-lg focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
                       name="feedback"
                     />

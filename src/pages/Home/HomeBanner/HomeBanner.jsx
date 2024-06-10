@@ -6,7 +6,7 @@ const HomeBanner = () => {
   const { toast } = useToast();
   
   return (
-    <div className="min-h-screen flex flex-col text-white justify-center items-center bg-cover bg-fixed bg-center bg-no-repeat bg-[linear-gradient(45deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('https://images.pexels.com/photos/7844012/pexels-photo-7844012.jpeg')]">
+    <div className="min-h-[calc(100vh-88px)] flex flex-col text-white justify-center items-center bg-cover bg-fixed bg-center bg-no-repeat bg-[linear-gradient(45deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('https://images.pexels.com/photos/7844012/pexels-photo-7844012.jpeg')]">
       <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 text-center">
         Welcome to  Quo<span className="text-red-500">k</span>
           <span className="text-yellow-500">k</span>a

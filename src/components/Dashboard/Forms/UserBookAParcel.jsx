@@ -151,6 +151,7 @@ const UserBookAParcel = () => {
           <div>
             <label className="text-gray-700  ">Phone Number</label>
             <input
+              required
               name="phoneNumber"
               id="Phone Number"
               type="number"
@@ -160,6 +161,7 @@ const UserBookAParcel = () => {
           <div>
             <label className="text-gray-700  ">Parcel Type</label>
             <input
+              required
               name="parcelType"
               type="text"
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
@@ -168,6 +170,7 @@ const UserBookAParcel = () => {
           <div>
             <label className="text-gray-700  ">Parcel Weight</label>
             <input
+              required
               onChange={onWeightChange}
               name="parcelWeight"
               type="number"
@@ -177,6 +180,7 @@ const UserBookAParcel = () => {
           <div>
             <label className="text-gray-700  ">Receivers Name</label>
             <input
+              required
               name="receiversName"
               type="text"
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
@@ -185,6 +189,7 @@ const UserBookAParcel = () => {
           <div>
             <label className="text-gray-700  ">Receivers Phone Number</label>
             <input
+              required
               name="receiversPhoneNumber"
               type="number"
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
@@ -193,6 +198,7 @@ const UserBookAParcel = () => {
           <div>
             <label className="text-gray-700  ">Parcel Delivery Address</label>
             <input
+              required
               name="parcelDeliveryAddress"
               type="text"
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
@@ -201,6 +207,7 @@ const UserBookAParcel = () => {
           <div>
             <label className="text-gray-700  ">Requested Delivery Date</label>
             <input
+              required
               name="requestedDeliveryDate"
               type="date"
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
@@ -209,6 +216,7 @@ const UserBookAParcel = () => {
           <div>
             <label className="text-gray-700  ">Delivery Address Latitude</label>
             <input
+              required
               step="any"
               name="deliveryAddressLatitude"
               type="number"
@@ -220,6 +228,7 @@ const UserBookAParcel = () => {
               Delivery Address Longitude
             </label>
             <input
+              required
               step="any"
               name="deliveryAddressLongitude"
               type="number"

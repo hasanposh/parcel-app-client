@@ -13,7 +13,7 @@ const AdminAllDeliverMenTableRow = ({ deliveryMan }) => {
       <TableCell>+88 {phoneNumber}</TableCell>
 
       <TableCell>{numberOfParcels}</TableCell>
-      <TableCell>{avgRating ? avgRating : 0}</TableCell>
+      <TableCell>{avgRating ? avgRating.toFixed(1) : 0}</TableCell>
     </TableRow>
   );
 };

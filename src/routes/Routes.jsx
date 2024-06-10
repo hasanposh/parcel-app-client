@@ -19,6 +19,7 @@ import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import PaymentDone from "@/components/Payment/PaymentDone";
 import PaymentPage from "@/components/Payment/PaymentPage";
+import RoleBasedIndexRoute from "./RoleBasedIndexRoute";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
     ),
     errorElement: <ErrorPage />,
     children: [
+      {
+        index: true,
+        element: <RoleBasedIndexRoute />,
+      },
       // user routes
       {
         path: "userProfile",

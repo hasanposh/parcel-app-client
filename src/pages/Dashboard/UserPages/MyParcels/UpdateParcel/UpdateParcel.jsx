@@ -1,5 +1,6 @@
 import useAuth from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
+import useUserMyParcels from "@/hooks/useUserMyParcels";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -9,8 +10,10 @@ const UpdateParcel = () => {
   const [price, setPrice] = useState();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
-  const { id,bookingStatus } = useParams();
-  // console.log(id)
+  const { id } = useParams();
+  const [parcels] = useUserMyParcels();
+  const parcel = parcels?.find((p) => p._id === id);
+  // console.log(parcel)
 
   const calcPrice = (weight) => {
     if (weight == 1) {
@@ -125,6 +128,7 @@ const UpdateParcel = () => {
             <div>
               <label className="text-gray-700  ">Phone Number</label>
               <input
+                required
                 name="phoneNumber"
                 id="Phone Number"
                 type="number"
@@ -134,6 +138,7 @@ const UpdateParcel = () => {
             <div>
               <label className="text-gray-700  ">Parcel Type</label>
               <input
+                required
                 name="parcelType"
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
@@ -142,6 +147,7 @@ const UpdateParcel = () => {
             <div>
               <label className="text-gray-700  ">Parcel Weight</label>
               <input
+                required
                 onChange={onWeightChange}
                 name="parcelWeight"
                 type="number"
@@ -151,6 +157,7 @@ const UpdateParcel = () => {
             <div>
               <label className="text-gray-700  ">Receivers Name</label>
               <input
+                required
                 name="receiversName"
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
@@ -159,6 +166,7 @@ const UpdateParcel = () => {
             <div>
               <label className="text-gray-700  ">Receivers Phone Number</label>
               <input
+                required
                 name="receiversPhoneNumber"
                 type="number"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
@@ -167,6 +175,7 @@ const UpdateParcel = () => {
             <div>
               <label className="text-gray-700  ">Parcel Delivery Address</label>
               <input
+                required
                 name="parcelDeliveryAddress"
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
@@ -175,6 +184,7 @@ const UpdateParcel = () => {
             <div>
               <label className="text-gray-700  ">Requested Delivery Date</label>
               <input
+                required
                 name="requestedDeliveryDate"
                 type="date"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
@@ -185,6 +195,7 @@ const UpdateParcel = () => {
                 Delivery Address Latitude
               </label>
               <input
+                required
                 step="any"
                 name="deliveryAddressLatitude"
                 type="number"
@@ -196,6 +207,7 @@ const UpdateParcel = () => {
                 Delivery Address Longitude
               </label>
               <input
+                required
                 step="any"
                 name="deliveryAddressLongitude"
                 type="number"
@@ -213,7 +225,10 @@ const UpdateParcel = () => {
           </div>
 
           <div className="flex justify-center mt-6">
-            <button disabled={bookingStatus !== "pending"} className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-red-500 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+            <button
+              disabled={parcel?.bookingStatus !== "pending"}
+              className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-red-500 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+            >
               Book
             </button>
           </div>
