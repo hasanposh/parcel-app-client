@@ -15,3 +15,28 @@ Features and characteristics of this website:
 - Secure Authentication: Implement secure login and registration systems with social login options, and ensure user data protection with JWT-based authentication.
 - Interactive Statistics: Visualize important metrics like parcel bookings and deliveries through interactive charts and graphs on the admin dashboard.
 - Customer Reviews and Ratings: Users can provide feedback and rate delivery personnel, enhancing service quality through user-generated reviews.
+
+## Technologies Used
+- **Frontend**: React.js
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **Authentication**: JWT-based authentication, Social Login
+- **Charts & Graphs**: Chart.js
+
+## Installation Steps
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+
+2. **Install dependencies**:
+   ```bash
+   cd project-directory
+   npm install
+2. **Set up environment variables**:
+
+  - Create a .env file in the root directory.
+  - Add necessary variables (e.g., database connection, JWT secret).
+
+2. **Run the application**:
+   ```bash
+   npm run dev
