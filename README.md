@@ -20,8 +20,8 @@ Features and characteristics of this website:
 - **Frontend**: React.js
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB
-- **Authentication**: JWT-based authentication, Social Login
-- **Charts & Graphs**: Chart.js
+- **Authentication**: JWT-based authentication, Social Login,firebase
+- **Charts & Graphs**: React Charts
 
 ## Installation Steps
 1. **Clone the repository**:
